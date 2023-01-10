@@ -10,7 +10,8 @@ pipeline {
                 sh "docker build -t pruebaspring ."
                 sh "docker tag pruebaspring vicarbar/spring:${BUILD_NUMBER}"
                 sh "docker images | grep pruebaspring"
-                sh "docker run -d -p 3001:3001 pruebaspring"
+                sh "docker run -d -p 8080:8080 pruebaspring"
+                sh "curl localhost:8080"
             }
         }
         stage('docker push') {
