@@ -21,5 +21,5 @@ pipeline {
     }
 }
 
-curl localhost:8080
+
 
