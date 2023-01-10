@@ -1,0 +1,19 @@
+version: 0.2
+phases:
+  install:
+    commands:
+      - npm -v
+      - node -v
+  pre_build:
+    commands:
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin 047666919273.dkr.ecr.eu-west-1.amazonaws.com/pruebacicd
+  build: 
+    commands:
+      - echo Building the Docker image...          
+      - docker build -t build-app .
+      - docker tag build-app 047666919273.dkr.ecr.eu-west-1.amazonaws.com/pruebacicd:latest
+  post_build:
+    commands: 
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push 047666919273.dkr.ecr.eu-west-1.amazonaws.com/pruebacicd:latest
